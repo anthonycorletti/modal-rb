@@ -48,10 +48,10 @@ jobs:
           working-directory: ./modal-rb
 
       - name: Run tests
-        run: rake
+        run: bundle exec rake
 
       - name: Build
-        run: rake build
+        run: bundle exec rake build
 
   release:
     needs: test
@@ -89,4 +89,4 @@ jobs:
           chmod 0600 "$HOME/.gem/credentials"
 
       - name: Release gem
-        run: rake release
+        run: bundle exec rake release
