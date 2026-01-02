@@ -25,16 +25,16 @@ module Modal
         rpc :AppGetLogs, ::Modal::Client::AppGetLogsRequest, stream(::Modal::Client::TaskLogsBatch)
         rpc :AppGetObjects, ::Modal::Client::AppGetObjectsRequest, ::Modal::Client::AppGetObjectsResponse
         rpc :AppGetOrCreate, ::Modal::Client::AppGetOrCreateRequest, ::Modal::Client::AppGetOrCreateResponse
+        rpc :AppGetTags, ::Modal::Client::AppGetTagsRequest, ::Modal::Client::AppGetTagsResponse
         rpc :AppHeartbeat, ::Modal::Client::AppHeartbeatRequest, ::Google::Protobuf::Empty
         rpc :AppList, ::Modal::Client::AppListRequest, ::Modal::Client::AppListResponse
         rpc :AppLookup, ::Modal::Client::AppLookupRequest, ::Modal::Client::AppLookupResponse
         rpc :AppPublish, ::Modal::Client::AppPublishRequest, ::Modal::Client::AppPublishResponse
         rpc :AppRollback, ::Modal::Client::AppRollbackRequest, ::Google::Protobuf::Empty
         rpc :AppSetObjects, ::Modal::Client::AppSetObjectsRequest, ::Google::Protobuf::Empty
+        rpc :AppSetTags, ::Modal::Client::AppSetTagsRequest, ::Google::Protobuf::Empty
         rpc :AppStop, ::Modal::Client::AppStopRequest, ::Google::Protobuf::Empty
         # Input Plane
-        # These RPCs are experimental, not deployed to production, and can be changed / removed
-        # without needing to worry about backwards compatibility.
         rpc :AttemptAwait, ::Modal::Client::AttemptAwaitRequest, ::Modal::Client::AttemptAwaitResponse
         rpc :AttemptRetry, ::Modal::Client::AttemptRetryRequest, ::Modal::Client::AttemptRetryResponse
         rpc :AttemptStart, ::Modal::Client::AttemptStartRequest, ::Modal::Client::AttemptStartResponse
@@ -90,15 +90,19 @@ module Modal
         rpc :FlashContainerDeregister, ::Modal::Client::FlashContainerDeregisterRequest, ::Google::Protobuf::Empty
         rpc :FlashContainerList, ::Modal::Client::FlashContainerListRequest, ::Modal::Client::FlashContainerListResponse
         rpc :FlashContainerRegister, ::Modal::Client::FlashContainerRegisterRequest, ::Modal::Client::FlashContainerRegisterResponse
+        rpc :FlashSetTargetSlotsMetrics, ::Modal::Client::FlashSetTargetSlotsMetricsRequest, ::Modal::Client::FlashSetTargetSlotsMetricsResponse
         # Functions
         rpc :FunctionAsyncInvoke, ::Modal::Client::FunctionAsyncInvokeRequest, ::Modal::Client::FunctionAsyncInvokeResponse
         rpc :FunctionBindParams, ::Modal::Client::FunctionBindParamsRequest, ::Modal::Client::FunctionBindParamsResponse
         rpc :FunctionCallCancel, ::Modal::Client::FunctionCallCancelRequest, ::Google::Protobuf::Empty
+        rpc :FunctionCallFromId, ::Modal::Client::FunctionCallFromIdRequest, ::Modal::Client::FunctionCallFromIdResponse
         rpc :FunctionCallGetDataIn, ::Modal::Client::FunctionCallGetDataRequest, stream(::Modal::Client::DataChunk)
         rpc :FunctionCallGetDataOut, ::Modal::Client::FunctionCallGetDataRequest, stream(::Modal::Client::DataChunk)
         rpc :FunctionCallList, ::Modal::Client::FunctionCallListRequest, ::Modal::Client::FunctionCallListResponse
         rpc :FunctionCallPutDataOut, ::Modal::Client::FunctionCallPutDataRequest, ::Google::Protobuf::Empty
         rpc :FunctionCreate, ::Modal::Client::FunctionCreateRequest, ::Modal::Client::FunctionCreateResponse
+        rpc :FunctionFinishInputs, ::Modal::Client::FunctionFinishInputsRequest, ::Google::Protobuf::Empty
+        # For map RPCs, to signal that all inputs have been sent
         rpc :FunctionGet, ::Modal::Client::FunctionGetRequest, ::Modal::Client::FunctionGetResponse
         rpc :FunctionGetCallGraph, ::Modal::Client::FunctionGetCallGraphRequest, ::Modal::Client::FunctionGetCallGraphResponse
         rpc :FunctionGetCurrentStats, ::Modal::Client::FunctionGetCurrentStatsRequest, ::Modal::Client::FunctionStats
@@ -117,6 +121,7 @@ module Modal
         rpc :FunctionStartPtyShell, ::Google::Protobuf::Empty, ::Google::Protobuf::Empty
         rpc :FunctionUpdateSchedulingParams, ::Modal::Client::FunctionUpdateSchedulingParamsRequest, ::Modal::Client::FunctionUpdateSchedulingParamsResponse
         # Images
+        rpc :ImageDelete, ::Modal::Client::ImageDeleteRequest, ::Google::Protobuf::Empty
         rpc :ImageFromId, ::Modal::Client::ImageFromIdRequest, ::Modal::Client::ImageFromIdResponse
         rpc :ImageGetOrCreate, ::Modal::Client::ImageGetOrCreateRequest, ::Modal::Client::ImageGetOrCreateResponse
         rpc :ImageJoinStreaming, ::Modal::Client::ImageJoinStreamingRequest, stream(::Modal::Client::ImageJoinStreamingResponse)
@@ -149,6 +154,7 @@ module Modal
         rpc :QueuePut, ::Modal::Client::QueuePutRequest, ::Google::Protobuf::Empty
         # Sandboxes
         rpc :SandboxCreate, ::Modal::Client::SandboxCreateRequest, ::Modal::Client::SandboxCreateResponse
+        rpc :SandboxCreateConnectToken, ::Modal::Client::SandboxCreateConnectTokenRequest, ::Modal::Client::SandboxCreateConnectTokenResponse
         rpc :SandboxGetFromName, ::Modal::Client::SandboxGetFromNameRequest, ::Modal::Client::SandboxGetFromNameResponse
         rpc :SandboxGetLogs, ::Modal::Client::SandboxGetLogsRequest, stream(::Modal::Client::TaskLogsBatch)
         rpc :SandboxGetResourceUsage, ::Modal::Client::SandboxGetResourceUsageRequest, ::Modal::Client::SandboxGetResourceUsageResponse
@@ -159,9 +165,12 @@ module Modal
         rpc :SandboxRestore, ::Modal::Client::SandboxRestoreRequest, ::Modal::Client::SandboxRestoreResponse
         rpc :SandboxSnapshot, ::Modal::Client::SandboxSnapshotRequest, ::Modal::Client::SandboxSnapshotResponse
         rpc :SandboxSnapshotFs, ::Modal::Client::SandboxSnapshotFsRequest, ::Modal::Client::SandboxSnapshotFsResponse
+        rpc :SandboxSnapshotFsAsync, ::Modal::Client::SandboxSnapshotFsAsyncRequest, ::Modal::Client::SandboxSnapshotFsAsyncResponse
+        rpc :SandboxSnapshotFsAsyncGet, ::Modal::Client::SandboxSnapshotFsAsyncGetRequest, ::Modal::Client::SandboxSnapshotFsResponse
         rpc :SandboxSnapshotGet, ::Modal::Client::SandboxSnapshotGetRequest, ::Modal::Client::SandboxSnapshotGetResponse
         rpc :SandboxSnapshotWait, ::Modal::Client::SandboxSnapshotWaitRequest, ::Modal::Client::SandboxSnapshotWaitResponse
         rpc :SandboxStdinWrite, ::Modal::Client::SandboxStdinWriteRequest, ::Modal::Client::SandboxStdinWriteResponse
+        rpc :SandboxTagsGet, ::Modal::Client::SandboxTagsGetRequest, ::Modal::Client::SandboxTagsGetResponse
         rpc :SandboxTagsSet, ::Modal::Client::SandboxTagsSetRequest, ::Google::Protobuf::Empty
         rpc :SandboxTerminate, ::Modal::Client::SandboxTerminateRequest, ::Modal::Client::SandboxTerminateResponse
         rpc :SandboxWait, ::Modal::Client::SandboxWaitRequest, ::Modal::Client::SandboxWaitResponse
@@ -182,6 +191,7 @@ module Modal
         # Tasks
         rpc :TaskClusterHello, ::Modal::Client::TaskClusterHelloRequest, ::Modal::Client::TaskClusterHelloResponse
         rpc :TaskCurrentInputs, ::Google::Protobuf::Empty, ::Modal::Client::TaskCurrentInputsResponse
+        rpc :TaskGetCommandRouterAccess, ::Modal::Client::TaskGetCommandRouterAccessRequest, ::Modal::Client::TaskGetCommandRouterAccessResponse
         rpc :TaskList, ::Modal::Client::TaskListRequest, ::Modal::Client::TaskListResponse
         rpc :TaskResult, ::Modal::Client::TaskResultRequest, ::Google::Protobuf::Empty
         # Tokens (web auth flow)
@@ -209,6 +219,7 @@ module Modal
         rpc :VolumeRemoveFile2, ::Modal::Client::VolumeRemoveFile2Request, ::Google::Protobuf::Empty
         rpc :VolumeRename, ::Modal::Client::VolumeRenameRequest, ::Google::Protobuf::Empty
         # Workspaces
+        rpc :WorkspaceBillingReport, ::Modal::Client::WorkspaceBillingReportRequest, stream(::Modal::Client::WorkspaceBillingReportItem)
         rpc :WorkspaceNameLookup, ::Google::Protobuf::Empty, ::Modal::Client::WorkspaceNameLookupResponse
       end
 
