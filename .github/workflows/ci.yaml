@@ -89,4 +89,7 @@ jobs:
           chmod 0600 "$HOME/.gem/credentials"
 
       - name: Release gem
-        run: bundle exec rake release
+        run: |
+          git config user.email "anthcor@gmail.com"
+          git config user.name "Anthony Corletti"
+          bundle exec rake release
