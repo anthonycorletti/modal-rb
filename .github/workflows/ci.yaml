@@ -92,9 +92,14 @@ jobs:
           fi
 
       - name: Release gem
-        env:
-          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN }}
         run: |
+          mkdir -p ~/.gem
+          cat <<EOF > ~/.gem/credentials
+          ---
+          :rubygems_api_key: ${{ secrets.RUBYGEMS_AUTH_TOKEN }}
+          EOF
+          chmod 0600 ~/.gem/credentials
+          gem whoami
           git config user.email "anthcor@gmail.com"
           git config user.name "Anthony Corletti"
           bundle exec rake release
