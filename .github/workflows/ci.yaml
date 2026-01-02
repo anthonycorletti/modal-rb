@@ -1,5 +1,8 @@
 name: ci
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -79,6 +82,14 @@ jobs:
           ruby-version: 4.0
           bundler-cache: true
           working-directory: ./modal-rb
+
+      - name: Ensure clean version
+        run: |
+          git fetch --tags
+          if git tag | grep -q "v$(ruby -e 'require "./lib/modal/version"; puts Modal::VERSION')"; then
+            echo "Tag already exists"
+            exit 1
+          fi
 
       - name: Configure RubyGems credentials
         env:
